@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 
 function App() {
   const birthDate = useRef();
+
   const [message, setMessage] = useState("Please enter the date.");
   const palCheck = () => {
     const beforeBday = PalindromeCheckerPlus(
@@ -19,7 +20,15 @@ function App() {
       new Date(afterBday),
       new Date(birthDate.current.value)
     );
-    if (PlusDiff > MinusDiff) {
+    if (
+      birthDate.current.value
+        .replaceAll("-", "")
+        .split("")
+        .reverse()
+        .join("") === birthDate.current.value.replaceAll("-", "")
+    ) {
+      setMessage(`Your Birthday is a Palindrome 🎉`);
+    } else if (PlusDiff > MinusDiff) {
       setMessage(
         `The nearest palindrome date is ${afterBday}, you missed by ${MinusDiff} days`
       );
